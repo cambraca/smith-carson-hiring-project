@@ -1,21 +1,31 @@
 version: '3'
 
 services:
-  php:
-    build: .
+  js:
+    build: ./client
     ports:
-      - 8080:80
+      - "4200:4200"
+    volumes:
+      - ./docker-cache/npm:/root/.npm
+      - ./client:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: npm start
+
+  php:
+    build: ./server
+    ports:
+      - "8080:80"
     links:
       - db
     environment:
       COMPOSER_ALLOW_SUPERUSER: 1
     volumes:
-      - ./public:/var/www/html
+      - ./server/public:/var/www/html
 
   db:
     image: mariadb:10.2
     ports:
-      - 3307:3306
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: plokijuh
       MYSQL_USER: dev

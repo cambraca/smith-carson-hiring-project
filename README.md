@@ -14,32 +14,24 @@ that uses the API to show a list of candidates.
 ```
 docker
 docker-compose
-node 12
-npm 7
 ```
 ## Running the projects
 
+This will install dependencies and start both the JS client and PHP server.
+```
+make build
+make start
+```
+
 ### Server
 
-This will run the php app and a mariadb database, the php app runs in port 8080
-```
-cd server
-docker-compose up -d
-docker-compose exec php php composer.phar install
-docker-compose exec php vendor/bin/phinx migrate
-docker-compose exec php vendor/bin/phinx seed:run
-```
+This will run the php app and a mariadb database, the php app runs in port 8080.
 
 You will be able to see a couple of records in the db and in this url http://localhost:8080/api/applicants
 
 ### Client
 
-This will run the ember app, the front end run in port 4200, and proxy the api requests
-```
-cd client
-npm install
-npm start
-```
+This will run the ember app, the front end run in port 4200, and proxy the api requests.
 
 You will be able to see the app running in the browser with http://localhost:4200/
 
