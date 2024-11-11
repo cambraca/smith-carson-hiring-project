@@ -3,13 +3,39 @@
 
 <h1>Listing candidates</h1>
 
-{{#each model as |applicant|}}
-<div>
-  <h2>{{applicant.name}}</h2>
-  <p>Age: {{applicant.age}}</p>
-</div>
-{{else}}
-<div>No records found</div>
-{{/each}}
+<ul class="candidates">
+  {{#each this.model as |candidate|}}
+  <li>
+    <h2>{{candidate.name}}</h2>
+    <p>Age: {{candidate.age}}</p>
+  </li>
+  {{else}}
+  <li>No records found</li>
+  {{/each}}
+</ul>
 
-<button {{on 'click' (action 'addNew')}} >Add new</button>
+{{#if this.errorMessage}}
+  <div class="error">{{this.errorMessage}}</div>
+{{else if this.successMessage}}
+  <div class="success">{{this.successMessage}}</div>
+{{/if}}
+
+{{#if this.showNewForm}}
+  <form {{on "submit" this.saveNew}}>
+    <fieldset>
+      <legend>New Candidate</legend>
+      <label>
+        Name:
+        <Input @type="text" @value={{this.newName}} autofocus/>
+      </label>
+      <label>
+        Age:
+        <Input @type="number" @value={{this.newAge}}/>
+      </label>
+      <button type="submit">Submit</button>
+      <button type="button" {{on 'click' this.cancelNew}} >Cancel</button>
+    </fieldset>
+  </form>
+{{else}}
+  <button type="button" {{on 'click' this.addNew}} >Add new</button>
+{{/if}}

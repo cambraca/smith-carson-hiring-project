@@ -2,8 +2,6 @@
     "name": "hiring/server",
     "description": "test project for checking devs skills",
     "type": "project",
-    "require-dev": {
-    },
     "license": "proprietary",
     "authors": [
         {
@@ -16,6 +14,7 @@
       "php": "^7.3",
       "ext-phalcon": "^4.0.1",
       "robmorgan/phinx": "^0.5.3",
-      "phalcon/ide-stubs": "^4.0.1"
+      "phalcon/ide-stubs": "^4.0.1",
+      "alsvanzelf/jsonapi": "^2.4"
     }
 }

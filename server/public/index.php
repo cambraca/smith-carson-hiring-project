@@ -1,9 +1,13 @@
 <?php
 
+use alsvanzelf\jsonapi;
+use App\Models\Candidates;
 use Phalcon\Loader;
 use Phalcon\Mvc\Micro;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Db\Adapter\Pdo\Mysql as PdoMysql;
+
+require_once 'vendor/autoload.php';
 
 $loader = new Loader();
 $loader->registerNamespaces(
@@ -37,15 +41,15 @@ $app->get(
       header('Content-type: application/json');
       echo json_encode([
         'available REST endpoints:',
-        'GET /api/applicants',
-        'GET /api/applicants/{id}',
-        'POST /api/applicants',
+        'GET /api/candidates',
+        'GET /api/candidates/{id}',
+        'POST /api/candidates',
       ]);
     }
 );
 
 $app->get(
-  '/api/applicants',
+  '/api/candidates',
   function () use ($app) {
     $phql = "SELECT id, name, age FROM App\Models\Candidates ORDER BY age";
     $candidates = $app
@@ -53,21 +57,44 @@ $app->get(
       ->executeQuery($phql)
     ;
 
-    $data = [];
+    $response = new jsonapi\CollectionDocument();
 
-    foreach ($candidates as $cand) {
-      $data[] = [
-        'type' => 'applicant',
-        'id'   => $cand->id,
-        'attributes' => [
-        'name' => $cand->name,
-        'age' => $cand->age,
-      ]
-      ];
+    /** @var \Phalcon\Mvc\Model\Row $cand */
+    foreach ($candidates as $candidate)
+      $response->add('candidates', $candidate->id, $candidate->toArray());
+
+    $response->sendResponse();
+  }
+);
+
+$app->post(
+  '/api/candidates',
+  function () use ($app) {
+    $parser = jsonapi\helpers\RequestParser::fromSuperglobals();
+    $document = $parser->getDocument();
+    $phql = "INSERT INTO App\Models\Candidates (name, age) VALUES (:name:, :age:)";
+    $result = $app
+      ->modelsManager
+      ->executeQuery($phql, $document['data']['attributes'])
+    ;
+
+    /** @var jsonapi\interfaces\DocumentInterface $response */
+    if ($result->success()) {
+      /** @var Candidates $model */
+      $model = $result->getModel();
+
+      $response = new jsonapi\ResourceDocument($model->getSource(), $model->id);
+      $response->setAttributesObject(jsonapi\objects\AttributesObject::fromObject($model));
+      $response->setHttpStatusCode(201);
+    } else {
+      $messages = $result->getMessages();
+      $message = (count($messages) >= 1) ? $messages[0]->getMessage() : 'Unknown error';
+
+      $error = new jsonapi\objects\ErrorObject(NULL, $message);
+      $response = new jsonapi\ErrorsDocument($error);
+      $response->setHttpStatusCode(400);
     }
-
-    header('Content-type: application/vnd.api+json'); // JSON API
-    echo json_encode(['data' => $data]);
+    $response->sendResponse();
   }
 );
 

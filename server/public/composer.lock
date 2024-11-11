@@ -4,8 +4,65 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f0f2784e1d11ca3d57f9b17ddddab2f",
+    "content-hash": "23f83a070059cef70b82abb1202c59d2",
     "packages": [
+        {
+            "name": "alsvanzelf/jsonapi",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lode/jsonapi.git",
+                "reference": "bae3f70d58af4c6d3ac5040c50e3b6b7e731de2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lode/jsonapi/zipball/bae3f70d58af4c6d3ac5040c50e3b6b7e731de2d",
+                "reference": "bae3f70d58af4c6d3ac5040c50e3b6b7e731de2d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "psr/http-message": "^1.0"
+            },
+            "suggest": {
+                "psr/http-message": "Allows constructing requests from Psr RequestInterface"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "alsvanzelf\\jsonapi\\": "src/",
+                    "alsvanzelf\\jsonapiTests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lode Claassen",
+                    "email": "lode@alsvanzelf.nl",
+                    "homepage": "https://www.lodeclaassen.nl/"
+                }
+            ],
+            "description": "Human-friendly library to implement JSON:API without needing to know the specification.",
+            "homepage": "https://github.com/lode/jsonapi",
+            "keywords": [
+                "JSON-API",
+                "api",
+                "json",
+                "jsonapi"
+            ],
+            "support": {
+                "issues": "https://github.com/lode/jsonapi/issues",
+                "source": "https://github.com/lode/jsonapi/tree/v2.4.0"
+            },
+            "time": "2022-10-02T08:39:05+00:00"
+        },
         {
             "name": "phalcon/ide-stubs",
             "version": "v4.1.0",
