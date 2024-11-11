@@ -18,15 +18,11 @@ label {
 }
 
 .error {
-  color: darkred;
-  margin: 10px;
-  padding: 10px;
-}
-
-.success {
-  color: darkgreen;
-  margin: 10px;
-  padding: 10px;
+  color: white;
+  background: darkred;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 5px 0;
 }
 
 fieldset {

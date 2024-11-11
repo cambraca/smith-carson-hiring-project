@@ -1,0 +1,21 @@
+<form {{on "submit" this.save}}>
+  <fieldset>
+    <legend>New Candidate</legend>
+
+    <label>
+      Name:
+      <Input @type="text" @value={{this.candidate.name}} autofocus/>
+    </label>
+    <label>
+      Age:
+      <Input @type="number" @value={{this.candidate.age}}/>
+    </label>
+
+    <button type="submit">Submit</button>
+    <button type="button" {{on 'click' this.cancelNew}} >Cancel</button>
+
+    {{#if this.error}}
+      <div class="error">{{this.error}}</div>
+    {{/if}}
+  </fieldset>
+</form>
