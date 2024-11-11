@@ -50,3 +50,12 @@ a new candidate record using this.store.createRecord and then save it.
 
 On the back end, you need to implement `$app->post('/api/candidates', function () use ($app) {});` that will receive the data
 in json:api format 
+
+## Tasks done
+
+- "Add candidate" component (basically a form) and API endpoint.
+- Adjusted the Docker setup to include the client as a container. Moved `docker-compose.yml` to the root dir, and added
+  a couple of make targets. Also see changes to this README above.
+- Changed "applicant" to "candidate" everywhere in the code (the mismatch was causing issues with the "add" operation).
+- Added the `alsvanzelf/jsonapi` library to the server to help with parsing/producing JSON API requests/responses.
+- Some very rudimentary CSS.
