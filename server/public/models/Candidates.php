@@ -9,30 +9,30 @@ use Phalcon\Validation\Validator\Uniqueness;
 
 class Candidates extends Model
 {
-    public function validation()
-    {
-        $validator = new Validation();
+  public function validation()
+  {
+    $validator = new Validation();
 
-        $validator->setFilters('name', 'trim');
+    $validator->setFilters('name', 'trim');
 
-        $validator->add(
-            'name',
-            new Uniqueness(
-                [
-                    'field'   => 'name',
-                    'message' => 'The candidate name must be unique',
-                ]
-            )
-        );
+    $validator->add(
+      'name',
+      new Uniqueness(
+        [
+          'field' => 'name',
+          'message' => 'The candidate name must be unique',
+        ]
+      )
+    );
 
-        if ($this->age < 18) {
-            $this->appendMessage(
-                new Message('Candidate must be adult')
-            );
-            return false;
-        }
-
-        // Validate the validator
-        return $this->validate($validator);
+    if ($this->age < 18) {
+      $this->appendMessage(
+        new Message('Candidate must be adult')
+      );
+      return false;
     }
+
+    // Validate the validator
+    return $this->validate($validator);
+  }
 }

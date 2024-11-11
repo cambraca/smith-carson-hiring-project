@@ -11,41 +11,41 @@ require_once 'vendor/autoload.php';
 
 $loader = new Loader();
 $loader->registerNamespaces(
-    [
-        'App\Models' => __DIR__ . '/models/',
-    ]
+  [
+    'App\Models' => __DIR__ . '/models/',
+  ]
 );
 $loader->register();
 
 
 $container = new FactoryDefault();
 $container->set(
-    'db',
-    function () {
-        return new PdoMysql(
-            [
-                'host'     => 'db',
-                'username' => 'dev',
-                'password' => 'plokijuh',
-                'dbname'   => 'hiring',
-            ]
-        );
-    }
+  'db',
+  function () {
+    return new PdoMysql(
+      [
+        'host' => 'db',
+        'username' => 'dev',
+        'password' => 'plokijuh',
+        'dbname' => 'hiring',
+      ]
+    );
+  }
 );
 
 $app = new Micro($container);
 
 $app->get(
-    '/',
-    function () {
-      header('Content-type: application/json');
-      echo json_encode([
-        'available REST endpoints:',
-        'GET /api/candidates',
-        'GET /api/candidates/{id}',
-        'POST /api/candidates',
-      ]);
-    }
+  '/',
+  function () {
+    header('Content-type: application/json');
+    echo json_encode([
+      'available REST endpoints:',
+      'GET /api/candidates',
+      'GET /api/candidates/{id}',
+      'POST /api/candidates',
+    ]);
+  }
 );
 
 $app->get(
@@ -54,8 +54,7 @@ $app->get(
     $phql = "SELECT id, name, age FROM App\Models\Candidates ORDER BY age";
     $candidates = $app
       ->modelsManager
-      ->executeQuery($phql)
-    ;
+      ->executeQuery($phql);
 
     $response = new jsonapi\CollectionDocument();
 
@@ -75,8 +74,7 @@ $app->post(
     $phql = "INSERT INTO App\Models\Candidates (name, age) VALUES (:name:, :age:)";
     $result = $app
       ->modelsManager
-      ->executeQuery($phql, $document['data']['attributes'])
-    ;
+      ->executeQuery($phql, $document['data']['attributes']);
 
     /** @var jsonapi\interfaces\DocumentInterface $response */
     if ($result->success()) {
