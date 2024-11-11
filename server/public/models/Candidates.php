@@ -6,13 +6,14 @@ use Phalcon\Mvc\Model;
 use Phalcon\Messages\Message;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Uniqueness;
-use Phalcon\Validation\Validator\InclusionIn;
 
 class Candidates extends Model
 {
     public function validation()
     {
         $validator = new Validation();
+
+        $validator->setFilters('name', 'trim');
 
         $validator->add(
             'name',
@@ -28,6 +29,7 @@ class Candidates extends Model
             $this->appendMessage(
                 new Message('Candidate must be adult')
             );
+            return false;
         }
 
         // Validate the validator
