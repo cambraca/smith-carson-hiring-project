@@ -9,8 +9,11 @@ seed:
 	docker-compose exec php vendor/bin/phinx migrate
 	docker-compose exec php vendor/bin/phinx seed:run
 
+logs:
+	docker-compose logs -f
+
 # Usage: `sudo make clean` (files created by Docker are owned by root user)
 clean:
 	rm -rf server/public/vendor client/node_modules client/dist docker-cache
 
-.PHONY: install start seed clean
+.PHONY: install start seed logs clean

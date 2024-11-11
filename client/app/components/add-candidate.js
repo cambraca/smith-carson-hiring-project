@@ -23,7 +23,7 @@ export default class AddCandidateComponent extends Component {
   }
 
   @action
-  cancelNew() {
+  cancel() {
     this.args.onCancel();
     this.error = null;
   }
