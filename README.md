@@ -19,8 +19,9 @@ docker-compose
 
 This will install dependencies and start both the JS client and PHP server.
 ```
-make build
+make install
 make start
+make seed
 ```
 
 ### Server

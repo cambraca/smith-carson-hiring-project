@@ -1,11 +1,16 @@
-build:
-	docker-compose build
-	docker-compose exec php php composer.phar install
-	docker-compose exec php vendor/bin/phinx migrate
-	docker-compose exec php vendor/bin/phinx seed:run
-	docker-compose exec js npm install
+install:
+	docker-compose run --rm php php composer.phar install
+	docker-compose run --rm --entrypoint=npm js install
 
 start:
 	docker-compose up -d
 
-.PHONY: build start
+seed:
+	docker-compose exec php vendor/bin/phinx migrate
+	docker-compose exec php vendor/bin/phinx seed:run
+
+# Usage: `sudo make clean` (files created by Docker are owned by root user)
+clean:
+	rm -rf server/public/vendor client/node_modules client/dist docker-cache
+
+.PHONY: install start seed clean

@@ -20,6 +20,7 @@ services:
     environment:
       COMPOSER_ALLOW_SUPERUSER: 1
     volumes:
+      - ./docker-cache/composer:/root/.composer
       - ./server/public:/var/www/html
 
   db:
