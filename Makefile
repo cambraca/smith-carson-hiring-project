@@ -12,8 +12,13 @@ seed:
 logs:
 	docker-compose logs -f
 
+test: test\:client
+
+test\:client:
+	docker-compose exec js npm test
+
 # Usage: `sudo make clean` (files created by Docker are owned by root user)
 clean:
 	rm -rf server/public/vendor client/node_modules client/dist docker-cache
 
-.PHONY: install start seed logs clean
+.PHONY: install start seed logs test test\:client clean

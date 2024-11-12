@@ -59,3 +59,6 @@ in json:api format
 - Changed "applicant" to "candidate" everywhere in the code (the mismatch was causing issues with the "add" operation).
 - Added the `alsvanzelf/jsonapi` library to the server to help with parsing/producing JSON API requests/responses.
 - Some very rudimentary CSS.
+- Made Ember tests work inside Docker using Chromium (see `client/Dockerfile` and `client/testem.js`).
+- Added a test for the `add-candidate` component. It doesn't fully work in CLI (`make test`), only in the browser
+  (`http://localhost:4200/tests`). More details in the test file.
