@@ -16,7 +16,7 @@ export default class AddCandidateComponent extends Component {
     try {
       await this.candidate.save();
       this.error = null;
-      this.args.onAdded();
+      this.args.onAdded(this.candidate);
     } catch (e) {
       this.error = (e.errors && e.errors[0]?.title) ?? 'Unknown error';
     }
